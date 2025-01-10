@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACKED BY ALZAABI TEAM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+            color: red;
+            font-family: Arial, sans-serif;
+        }
+        .image-container {
+            position: relative;
+            width: 20%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        img {
+            width: 100%;
+            height: auto;
+        }
+        h1 {
+            margin: 20px 0;
+            font-size: 2em;
+            text-align: center;
+        }
+        a {
+            color: red;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        .user-info {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: white;
+        }
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- عرض الصورة -->
+    <div class="image-container">
+        <img src="1.png" alt="Hacked Logo">
+    </div>
+    <h1>HACKED BY ALZAABI TEAM</h1>
+    <a href="https://discord.gg/uuuu" target="_blank">discord.gg/uuuu</a>
+    
+    <!-- عرض عنوان IP -->
+    <div class="user-info" id="ip-info"></div>
+
+    <!-- الصوت -->
+    <audio id="audioPlayer" loop>
+        <source src="2.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // إخفاء الصوت أولاً
+        var audio = document.getElementById("audioPlayer");
+        audio.muted = true;  // كتم الصوت في البداية
+
+        // تشغيل الصوت عند تحريك الفأرة في الصفحة
+        document.addEventListener("mousemove", function() {
+            if (audio.paused) {
+                audio.muted = false;  // إلغاء كتم الصوت
+                audio.play();  // تشغيل الصوت
+            }
+        });
+
+        // جلب عنوان IP باستخدام ipify بدون API Token
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ipInfo = `<p><strong> IP Address:</strong> ${data.ip}</p>`;
+                document.getElementById("ip-info").innerHTML = ipInfo;
+            })
+            .catch(error => {
+                document.getElementById("ip-info").innerHTML = "<p>Error fetching IP address.</p>";
+            });
+    </script>
+</body>
+</html>
