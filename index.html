@@ -10,85 +10,328 @@
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             background: #000;
             overflow: hidden;
-            color: red;
-            font-family: Arial, sans-serif;
+            color: #00ff00;
+            font-family: 'Arial', sans-serif;
+            position: relative;
         }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(#000, #000);
+            animation: animate 15s linear infinite;
+        }
+        
+        @keyframes animate {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100%);
+            }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        
         .image-container {
             position: relative;
-            width: 20%;
+            width: 200px;
             height: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 20px 0;
+            filter: drop-shadow(0 0 20px #00ff00);
+            animation: glow 2s ease-in-out infinite;
         }
+        
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px #00ff00); }
+            50% { filter: drop-shadow(0 0 40px #00ff00); }
+        }
+        
         img {
             width: 100%;
             height: auto;
         }
+        
         h1 {
-            margin: 20px 0;
-            font-size: 2em;
+            font-size: 4em;
             text-align: center;
+            text-shadow: 0 0 20px #00ff00;
+            animation: textGlow 2s infinite;
+            letter-spacing: 8px;
+            margin: 40px 0;
+            font-weight: bold;
+            color: #00ff00;
         }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 20px #00ff00; }
+            50% { text-shadow: 0 0 40px #00ff00, 0 0 60px #00ff00; }
+            100% { text-shadow: 0 0 20px #00ff00; }
+        }
+        
         a {
-            color: red;
+            color: #00ff00;
             text-decoration: none;
-            font-size: 1.2em;
-            margin-top: 10px;
+            font-size: 1.5em;
+            margin: 40px 0;
+            padding: 20px 40px;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: rgba(0, 255, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
+        a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,0,0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        a:hover::before {
+            left: 100%;
+        }
+        
+        a:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 50px #00ff00;
+            transform: scale(1.1);
+            letter-spacing: 5px;
+        }
+        
         .user-info {
-            margin-top: 10px;
-            font-size: 1.2em;
-            color: white;
+            margin-top: 40px;
+            font-size: 1.8em;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            background: rgba(0, 255, 0, 0.15);
+            padding: 20px 40px;
+            border-radius: 15px;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
         }
+        
         audio {
             display: none;
+        }
+
+        /* تحسين تأثير المطر الرقمي */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .matrix-column {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 15px;
+            line-height: 15px;
+            white-space: nowrap;
+            transform-origin: 50% 50%;
+            text-shadow: 0 0 8px #0f0;
+            animation: fadeInOut 2s infinite;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; text-shadow: 0 0 8px #0f0; }
+            2% { opacity: 1; text-shadow: 0 0 8px #0f0; }
+            50% { opacity: 1; text-shadow: 0 0 15px #0f0; }
+            98% { opacity: 0; text-shadow: 0 0 8px #0f0; }
+            100% { opacity: 0; }
+        }
+        
+        /* إضافة تأثير خلفية متحركة */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+            z-index: 1;
         }
     </style>
 </head>
 <body>
-    <!-- عرض الصورة -->
-    <div class="image-container">
-        <img src="1.png" alt="Hacked Logo">
+    <div class="matrix-rain"></div>
+    <div class="container">
+        <div class="image-container">
+            <img src="1.png" alt="Hacked Logo">
+        </div>
+        <h1>HACKED BY ALZAABI TEAM</h1>
+        <a href="https://discord.gg/uuuu" target="_blank">discord.gg/uuuu</a>
+        <div class="user-info" id="ip-info"></div>
     </div>
-    <h1>HACKED BY ALZAABI TEAM</h1>
-    <a href="https://discord.gg/uuuu" target="_blank">discord.gg/uuuu</a>
-    
-    <!-- عرض عنوان IP -->
-    <div class="user-info" id="ip-info"></div>
 
-    <!-- الصوت -->
-    <audio id="audioPlayer" loop>
-        <source src="2.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
+    <audio id="background-audio" loop autoplay>
+        <source src="your-audio-file.mp3" type="audio/mpeg">
     </audio>
 
-    <script>
-        // إخفاء الصوت أولاً
-        var audio = document.getElementById("audioPlayer");
-        audio.muted = true;  // كتم الصوت في البداية
+    <div id="youtube-player">
+        <iframe 
+            width="0" 
+            height="0" 
+            src="https://www.youtube.com/embed/53SyywtK0XU?autoplay=1" 
+            allow="autoplay" 
+            style="display:none">
+        </iframe>
+    </div>
 
-        // تشغيل الصوت عند تحريك الفأرة في الصفحة
-        document.addEventListener("mousemove", function() {
-            if (audio.paused) {
-                audio.muted = false;  // إلغاء كتم الصوت
-                audio.play();  // تشغيل الصوت
+    <script>
+        // تحسين كود المطر الرقمي
+        class MatrixRain {
+            constructor() {
+                this.canvas = document.querySelector('.matrix-rain');
+                this.columns = [];
+                this.characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%^&*';
+                this.init();
             }
+
+            init() {
+                const columnCount = Math.floor(window.innerWidth / 15);
+                
+                for (let i = 0; i < columnCount; i++) {
+                    let column = document.createElement('div');
+                    column.className = 'matrix-column';
+                    column.style.left = `${i * 15}px`;
+                    this.canvas.appendChild(column);
+                    this.columns.push({
+                        element: column,
+                        y: Math.random() * -1000,
+                        speed: Math.random() * 2 + 1,
+                        length: Math.floor(Math.random() * 15 + 5),
+                        chars: []
+                    });
+                }
+                
+                this.animate();
+            }
+
+            updateColumn(column) {
+                column.y += column.speed;
+                if (column.y > window.innerHeight + 200) {
+                    column.y = Math.random() * -1000;
+                }
+
+                // تحديث الحروف
+                let chars = '';
+                for (let i = 0; i < column.length; i++) {
+                    const char = this.characters[Math.floor(Math.random() * this.characters.length)];
+                    const opacity = 1 - (i / column.length);
+                    chars += `<span style="opacity: ${opacity}; color: rgb(0, ${Math.floor(255 * opacity)}, 0)">${char}</span>`;
+                }
+                
+                column.element.innerHTML = chars;
+                column.element.style.transform = `translateY(${column.y}px)`;
+            }
+
+            animate() {
+                this.columns.forEach(column => this.updateColumn(column));
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // تشغيل المطر الرقمي عند تحميل الصفحة
+        window.addEventListener('load', () => {
+            new MatrixRain();
         });
 
-        // جلب عنوان IP باستخدام ipify بدون API Token
+        // إعادة تهيئة المطر الرقمي عند تغيير حجم النافذة
+        window.addEventListener('resize', () => {
+            document.querySelector('.matrix-rain').innerHTML = '';
+            new MatrixRain();
+        });
+
+        // تأثير المطر الرقمي
+        const matrixRain = document.querySelector('.matrix-rain');
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
+        const fontSize = 15;
+        const columns = Math.floor(window.innerWidth / fontSize);
+
+        for(let i = 0; i < columns; i++) {
+            let column = document.createElement('div');
+            column.style.position = 'absolute';
+            column.style.fontSize = `${fontSize}px`;
+            column.style.left = `${i * fontSize}px`;
+            column.style.top = `${Math.random() * -1000}px`;
+            column.style.color = '#0f0';
+            column.style.opacity = '0.8';
+            column.textContent = characters[Math.floor(Math.random() * characters.length)];
+            matrixRain.appendChild(column);
+
+            let y = 0;
+            function rain() {
+                y += fontSize;
+                if(y > window.innerHeight) {
+                    y = 0;
+                    column.style.top = `${Math.random() * -1000}px`;
+                }
+                column.style.transform = `translateY(${y}px)`;
+                column.textContent = characters[Math.floor(Math.random() * characters.length)];
+                setTimeout(rain, Math.random() * 100 + 50);
+            }
+            rain();
+        }
+
+        // إضافة دالة تشغيل الصوت
+        function playBackgroundAudio() {
+            const audio = document.getElementById('background-audio');
+            audio.play();
+            audio.volume = 1.0;
+        }
+
+        // محاولة تشغيل الصوت بعض طرق
+        document.addEventListener('DOMContentLoaded', playBackgroundAudio);
+        document.addEventListener('click', playBackgroundAudio);
+        document.addEventListener('keydown', playBackgroundAudio);
+        document.addEventListener('touchstart', playBackgroundAudio);
+        
+        // محاولة تشغيل الصوت كل ثانيتين
+        setInterval(playBackgroundAudio, 2000);
+
+        // جلب عنوان IP
         fetch('https://api.ipify.org?format=json')
             .then(response => response.json())
             .then(data => {
-                const ipInfo = `<p><strong> IP Address:</strong> ${data.ip}</p>`;
+                const ipInfo = `<p><strong>IP Address:</strong> ${data.ip}</p>`;
                 document.getElementById("ip-info").innerHTML = ipInfo;
             })
             .catch(error => {
